@@ -5,3 +5,6 @@
 
 ## 2. 路由
 [路由](/docs/Router.md)
+
+## 3. 控制器
+[控制器](/docs/Controller.md)
