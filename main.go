@@ -8,6 +8,8 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/riicarus/ginlearn/db"
 )
 
 type Login struct {
@@ -80,6 +82,17 @@ func main() {
 			log.Fatal(err)
 		}
 	})
+
+	router.GET("/db/query", func(ctx *gin.Context) {
+		userList := []db.User{}
+
+		db.DB.Find(&userList)
+
+		ctx.JSON(http.StatusOK, gin.H{
+			"userlist": userList,
+		})
+	})
+
 	// listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 	// also: http.ListenAndServe(":8080", router)
 	router.Run()

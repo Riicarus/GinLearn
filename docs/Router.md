@@ -58,6 +58,7 @@ router.POST("/form", func(c *gin.Context) {
 ```golang
 someGroup := router.Group("/someGroup")
 {
+	// 这里的 url: "/someGroup/someGet"
     someGroup.GET("/someGet", getting)
 	someGroup.POST("/somePost", posting)
 }
