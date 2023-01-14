@@ -10,6 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/riicarus/ginlearn/db"
+	"github.com/riicarus/ginlearn/resp"
+	"github.com/riicarus/ginlearn/weblog"
 )
 
 type Login struct {
@@ -19,6 +21,7 @@ type Login struct {
 
 func main() {
 	router := gin.Default()
+	router.Use(weblog.WebLogMiddleWare())
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
@@ -88,10 +91,10 @@ func main() {
 
 		db.DB.Find(&userList)
 
-		ctx.JSON(http.StatusOK, gin.H{
-			"userlist": userList,
-		})
+		ctx.JSON(http.StatusOK, resp.Ok(userList))
 	})
+
+	fmt.Println(resp.Ok())
 
 	// listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 	// also: http.ListenAndServe(":8080", router)
